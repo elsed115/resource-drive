@@ -11,7 +11,6 @@ class ToolServiceProvider extends BaseToolServiceProvider
 {
     public function boot()
     {
-        parent::boot();
 
         Log::info('ResourceDrive Tool: Booting Service Provider.');
 
