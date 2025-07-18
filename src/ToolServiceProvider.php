@@ -2,28 +2,27 @@
 namespace Elsed115\ResourceDrive;
 
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
+use Laravel\Nova\ToolServiceProvider as BaseToolServiceProvider;
 
-class ToolServiceProvider extends ServiceProvider
+class ToolServiceProvider extends BaseToolServiceProvider
 {
     public function boot()
     {
-        Log::info('ResourceDrive Tool: Booting Service Provider.');
+        parent::boot();
 
-        $this->app->booted(function () {
-            $this->routes();
-            Log::info('ResourceDrive Tool: Routes registered.');
-        });
+        Log::info('ResourceDrive Tool: Booting Service Provider.');
 
         Nova::serving(function (ServingNova $event) {
             Log::info('ResourceDrive Tool: ServingNova event caught.');
-            Nova::script('resource-drive', __DIR__.'/../dist/js/tool.js');
-            Nova::style('resource-drive', __DIR__.'/../dist/css/tool.css');
+            Nova::script('resource-drive', __DIR__ . '/../dist/js/tool.js');
+            Nova::style('resource-drive', __DIR__ . '/../dist/css/tool.css');
             Log::info('ResourceDrive Tool: Assets registered.');
         });
+
+        $this->routes();
     }
 
     /**
@@ -38,17 +37,7 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova'])
-                ->prefix('nova-vendor/resource-drive')
-                ->group(__DIR__.'/../routes/api.php');
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        Log::info('ResourceDrive Tool: Registering Service Provider.');
+            ->prefix('nova-vendor/elsed115/resource-drive')
+            ->group(__DIR__ . '/../routes/api.php');
     }
 }
