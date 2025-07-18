@@ -2,49 +2,51 @@
 
 namespace Elsed115\ResourceDrive;
 
-use Laravel\Nova\ResourceTool;
-use Closure;
 use Laravel\Nova\Fields\Field;
+use Illuminate\Support\Facades\Route;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 
-class ResourceDrive extends ResourceTool
+class ResourceDrive extends Field
 {
     /**
-     * Get the displayable name of the resource tool.
+     * The field's component.
      *
-     * @return string
+     * @var string
      */
-    public function name()
+    public $component = 'resource-drive';
+
+    /**
+     * Boot the field.
+     *
+     * @return void
+     */
+    public static function boot()
     {
-        return 'Resource Drive';
+        parent::boot();
+
+        static::registerRoutes();
+
+        Nova::serving(function (ServingNova $event) {
+            Nova::script('resource-drive', __DIR__.'/../dist/js/tool.js');
+            Nova::style('resource-drive', __DIR__.'/../dist/css/tool.css');
+        });
     }
 
     /**
-     * Get the component name for the resource tool.
+     * Register the field's routes.
      *
-     * @return string
+     * @return void
      */
-    public function component()
+    public static function registerRoutes()
     {
-        return 'resource-drive';
-    }
-    protected ?Closure $filesystemCallback = null;
-
-    public function filesystem(Closure $callback): self
-    {
-        $this->filesystemCallback = $callback;
-        return $this;
-    }
-
-    public function resolveFilesystem($request)
-    {
-        if ($this->filesystemCallback) {
-            return call_user_func($this->filesystemCallback, $request);
+        $appName = config('app.name');
+        if (app()->routesAreCached() && file_exists(app()->getCachedRoutesPath()) && str_contains(file_get_contents(app()->getCachedRoutesPath()), 'nova-vendor/elsed115/resource-drive')) {
+            return;
         }
-        return \Storage::disk('minio');
-    }
 
-    public function hasCustomFilesystem(): bool
-    {
-        return (bool) $this->filesystemCallback;
+        Route::middleware(['nova'])
+            ->prefix('nova-vendor/elsed115/resource-drive')
+            ->group(__DIR__.'/../routes/api.php');
     }
 }
