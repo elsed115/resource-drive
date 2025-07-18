@@ -2,51 +2,44 @@
 
 namespace Elsed115\ResourceDrive;
 
-use Laravel\Nova\Fields\Field;
-use Illuminate\Support\Facades\Route;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
+use Laravel\Nova\ResourceTool;
+use Closure;
+use Illuminate\Support\Facades\Storage;
 
-class ResourceDrive extends Field
+class ResourceDrive extends ResourceTool
 {
-    /**
-     * The field's component.
-     *
-     * @var string
-     */
-    public $component = 'resource-drive';
+    protected ?Closure $filesystemCallback = null;
 
-    /**
-     * Boot the field.
-     *
-     * @return void
-     */
-    public static function boot()
+    public function name(): string
     {
-        parent::boot();
+        return 'Resource Drive';
+    }
 
-        static::registerRoutes();
-
-        Nova::serving(function (ServingNova $event) {
-            Nova::script('resource-drive', __DIR__.'/../dist/js/tool.js');
-            Nova::style('resource-drive', __DIR__.'/../dist/css/tool.css');
-        });
+    public function component(): string
+    {
+        // deve corrispondere al nome registrato in JS
+        return 'resource-file-manager';
     }
 
     /**
-     * Register the field's routes.
-     *
-     * @return void
+     * Imposta un filesystem custom.
      */
-    public static function registerRoutes()
+    public function filesystem(Closure $callback): self
     {
-        $appName = config('app.name');
-        if (app()->routesAreCached() && file_exists(app()->getCachedRoutesPath()) && str_contains(file_get_contents(app()->getCachedRoutesPath()), 'nova-vendor/elsed115/resource-drive')) {
-            return;
-        }
+        $this->filesystemCallback = $callback;
+        return $this;
+    }
 
-        Route::middleware(['nova'])
-            ->prefix('nova-vendor/elsed115/resource-drive')
-            ->group(__DIR__.'/../routes/api.php');
+    public function resolveFilesystem($request)
+    {
+        if ($this->filesystemCallback) {
+            return call_user_func($this->filesystemCallback, $request);
+        }
+        return Storage::disk('minio');
+    }
+
+    public function hasCustomFilesystem(): bool
+    {
+        return (bool) $this->filesystemCallback;
     }
 }

@@ -1,39 +1,32 @@
 {
-    "name": "elsed115/resource-drive",
-    "description": "A Laravel Nova tool to manage files on different filesystems.",
-    "keywords": [
-        "laravel",
-        "nova",
-        "filemanager"
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Giuliano Di Nardo",
-            "email": "giuliano.dinardo@generazioneai.it"
-        }
-    ],
-    "require": {
-        "php": "^7.3|^8.0",
-        "laravel/nova": "^4.0",
-        "league/flysystem-aws-s3-v3": "^3.29"
-    },
-    "autoload": {
-        "psr-4": {
-            "Elsed115\\ResourceDrive\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Elsed115\\ResourceDrive\\ToolServiceProvider"
-            ]
-        }
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "version": "1.2.1",
-    "minimum-stability": "dev",
-    "prefer-stable": true
+  "name": "elsed115/resource-drive",
+  "description": "A Laravel Nova tool to manage files on different filesystems.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Giuliano Di Nardo",
+      "email": "giuliano.dinardo@generazioneai.it"
+    }
+  ],
+  "require": {
+    "php": "^7.3|^8.0",
+    "laravel/nova": "^4.0",
+    "league/flysystem-aws-s3-v3": "^3.29"
+  },
+  "autoload": {
+    "psr-4": {
+      "Elsed115\\ResourceDrive\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Elsed115\\ResourceDrive\\ToolServiceProvider"
+      ]
+    }
+  },
+  "prefer-stable": true,
+  "minimum-stability": "dev",
+  "version": "1.2.2"
 }

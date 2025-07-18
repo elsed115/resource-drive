@@ -1,6 +1,6 @@
 <template>
     <div class="fm-wrapper" @click="closeContextMenu">
-        <h1 class="font-normal text-xl md:text-xl mb-3 flex items-center">{{ titolo }}</h1>
+        <h1 class="font-normal text-xl mb-3 flex items-center">{{ titolo }}</h1>
 
         <!-- Actions Header -->
         <div class="flex gap-2 mb-6">
@@ -98,7 +98,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, nextTick } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue'
 import { useDebounceFn } from '@vueuse/core';
 
 // Import child components (assuming they are created in the same directory)
