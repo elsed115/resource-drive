@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* override Nova defaults if serve */
+.nova-content {
+  background: theme('colors.bg');
+}
+
