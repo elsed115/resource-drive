@@ -1,22 +1,14 @@
 {
     "name": "elsed115/resource-drive",
-    "description": "A Laravel Nova tool to manage files on different filesystems.",
+    "description": "A Laravel Nova field.",
     "keywords": [
         "laravel",
-        "nova",
-        "filemanager"
+        "nova"
     ],
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Your Name",
-            "email": "your@email.com"
-        }
-    ],
     "require": {
-        "php": "^7.3|^8.0",
-        "laravel/nova": "^4.0",
-        "league/flysystem-aws-s3-v3": "^3.29"
+        "php": "^8.0",
+        "laravel/nova": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -25,9 +17,8 @@
     },
     "extra": {
         "laravel": {
-            "providers": [
-                "Elsed115\\ResourceDrive\\ToolServiceProvider"
-            ]
+            "providers": [],
+            "aliases": {}
         }
     },
     "config": {
