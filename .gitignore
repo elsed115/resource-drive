@@ -1,0 +1,20 @@
+# dipendenze JS
+/node_modules/
+
+# dipendenze PHP (se per caso le installi qua)
+/vendor/
+
+# file di configurazione locali
+.env
+
+# cache, log, debug
+npm-debug.log*
+yarn-error.log*
+*.log
+
+# cartelle/chiavi IDE
+.idea/
+.vscode/
+
+# su macOS
+.DS_Store
