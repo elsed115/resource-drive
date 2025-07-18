@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 use League\Flysystem\UnableToRetrieveMetadata;
 use Illuminate\Support\Str;
 use App\Models\Work;
-use Laravel\Nova\Nova;
 use Aws\S3\S3Client;
 
 class FileController extends Controller
