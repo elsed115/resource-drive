@@ -1,6 +1,6 @@
 <?php
 
-namespace Elsed\ResourceFileManager\Http\Controllers;
+namespace Elsed115\ResourceDrive\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
