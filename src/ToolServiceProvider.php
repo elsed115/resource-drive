@@ -13,7 +13,7 @@ class ToolServiceProvider extends BaseToolServiceProvider
     {
 
         Log::info('ResourceDrive Tool: Booting Service Provider.');
-
+ 
         Nova::serving(function (ServingNova $event) {
             Log::info('ResourceDrive Tool: ServingNova event caught.');
             Nova::script('resource-drive', __DIR__ . '/../dist/js/tool.js');
