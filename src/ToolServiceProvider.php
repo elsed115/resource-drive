@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
-use Laravel\Nova\ToolServiceProvider as BaseToolServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseToolServiceProvider;
 
 class ToolServiceProvider extends BaseToolServiceProvider
 {
